@@ -99,4 +99,4 @@ app.post('/addEvent', (req, res) => {
 });
 
 
-app.listen(port)
+app.listen(process.env.PORT || port)
