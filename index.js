@@ -19,7 +19,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
   const homeEventsCollection = client.db("volunteerNetwork").collection("homeEvents");
   const userEventsCollection = client.db("volunteerNetwork").collection("userEvents");
-  const adminEventsCollection = client.db("volunteerNetwork").collection("adminEvents");
 
   app.post('/addFakeData', (req, res) => {
       const homeEvents = req.body;
@@ -70,6 +69,7 @@ client.connect(err => {
 })
 
 app.delete('/deletePersonalTask/:id', (req, res) => {
+    console.log(req.params.id);
     userEventsCollection.deleteOne({_id: ObjectId(req.params.id)})
     .then(result => {
         res.send(result.deletedCount > 0);
@@ -87,7 +87,7 @@ app.delete('/deleteAllUsers/:id', (req, res) => {
 
 app.post('/addEvent', (req, res) => {
     const newEvent = req.body;
-    adminEventsCollection.insertOne(newEvent)
+    homeEventsCollection.insertOne(newEvent)
     .then(result => {
         console.log(result)
     })
