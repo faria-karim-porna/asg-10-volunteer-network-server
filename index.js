@@ -72,7 +72,7 @@ client.connect(err => {
 app.delete('/deletePersonalTask/:id', (req, res) => {
     userEventsCollection.deleteOne({_id: ObjectId(req.params.id)})
     .then(result => {
-        console.log(result);
+        res.send(result.deletedCount > 0);
     })
     //console.log(req.params.id)
 })
@@ -80,7 +80,7 @@ app.delete('/deletePersonalTask/:id', (req, res) => {
 app.delete('/deleteAllUsers/:id', (req, res) => {
     userEventsCollection.deleteOne({_id: ObjectId(req.params.id)})
     .then(result => {
-        console.log(result);
+        res.send(result.deletedCount > 0);
     })
     //console.log(req.params.id)
 })
