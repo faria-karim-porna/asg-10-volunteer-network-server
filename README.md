@@ -2,7 +2,7 @@
 
 #### Live Site Link : https://asg-10-volunteer-network.web.app/
 
-#### Server Client Github Link : https://github.com/faria-karim-porna/asg-10-volunteer-network-client
+#### Client Github Link : https://github.com/faria-karim-porna/asg-10-volunteer-network-client
 
 ## Overview 
 
