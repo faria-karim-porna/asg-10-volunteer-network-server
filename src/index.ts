@@ -15,7 +15,7 @@ app.use(cors());
 
 const port = 5000;
 
-app.get("/", (req, res) => {
+app.get("/", (req: any, res: any) => {
   res.send("hello from db it's working working");
 });
 
@@ -23,67 +23,67 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 client
   .connect()
-  .then((res) => {
+  .then((res: any) => {
     const homeEventsCollection = client.db("volunteerNetwork").collection("homeEvents");
     const userEventsCollection = client.db("volunteerNetwork").collection("userEvents");
 
-    app.post("/addFakeData", (req, res) => {
+    app.post("/addFakeData", (req: any, res: any) => {
       const homeEvents = req.body;
-      homeEventsCollection.insertMany(homeEvents).then((result) => {
+      homeEventsCollection.insertMany(homeEvents).then((result: any) => {
         console.log(result.insertedCount);
         res.send(result.insertedCount);
       });
     });
 
-    app.get("/fakeData", (req, res) => {
-      homeEventsCollection.find({}).toArray((err, documents) => {
+    app.get("/fakeData", (req: any, res: any) => {
+      homeEventsCollection.find({}).toArray((err: any, documents: any) => {
         res.send(documents);
       });
     });
 
-    app.post("/userRegistration", (req, res) => {
+    app.post("/userRegistration", (req: any, res: any) => {
       const newRegistration = req.body;
-      userEventsCollection.insertOne(newRegistration).then((result) => {
+      userEventsCollection.insertOne(newRegistration).then((result: any) => {
         res.send(result.insertedCount > 0);
       });
     });
 
-    app.get("/personalTask", (req, res) => {
-      userEventsCollection.find({ email: req.query.email }).toArray((err, documents) => {
+    app.get("/personalTask", (req: any, res: any) => {
+      userEventsCollection.find({ email: req.query.email }).toArray((err: any, documents: any) => {
         res.send(documents);
       });
     });
 
-    app.get("/homeData", (req, res) => {
-      homeEventsCollection.find({ activity: req.query.activity }).toArray((err, documents) => {
+    app.get("/homeData", (req: any, res: any) => {
+      homeEventsCollection.find({ activity: req.query.activity }).toArray((err: any, documents: any) => {
         res.send(documents);
       });
     });
 
-    app.get("/allUsers", (req, res) => {
-      userEventsCollection.find({}).toArray((err, documents) => {
+    app.get("/allUsers", (req: any, res: any) => {
+      userEventsCollection.find({}).toArray((err: any, documents: any) => {
         res.send(documents);
       });
     });
 
-    app.delete("/deletePersonalTask/:id", (req, res) => {
+    app.delete("/deletePersonalTask/:id", (req: any, res: any) => {
       console.log(req.params.id);
-      userEventsCollection.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
+      userEventsCollection.deleteOne({ _id: ObjectId(req.params.id) }).then((result: any) => {
         res.send(result.deletedCount > 0);
       });
       //console.log(req.params.id)
     });
 
-    app.delete("/deleteAllUsers/:id", (req, res) => {
-      userEventsCollection.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
+    app.delete("/deleteAllUsers/:id", (req: any, res: any) => {
+      userEventsCollection.deleteOne({ _id: ObjectId(req.params.id) }).then((result: any) => {
         res.send(result.deletedCount > 0);
       });
       //console.log(req.params.id)
     });
 
-    app.post("/addEvent", (req, res) => {
+    app.post("/addEvent", (req: any, res: any) => {
       const newEvent = req.body;
-      homeEventsCollection.insertOne(newEvent).then((result) => {
+      homeEventsCollection.insertOne(newEvent).then((result: any) => {
         res.send(result.insertedCount > 0);
       });
     });
@@ -91,7 +91,7 @@ client
     // perform actions on the collection object
     console.log("database connected");
   })
-  .catch((err) => {
+  .catch((err: any) => {
     console.log(err);
   });
 
